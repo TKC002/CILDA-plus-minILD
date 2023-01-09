@@ -1,0 +1,1 @@
+accelerate launch one_method.py --config RAIL.yaml

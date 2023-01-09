@@ -1,0 +1,30 @@
+method : normal
+model : roberta-large
+tokenizer : roberta-large
+lr_scheduler_type : constant
+wd : 0.0
+num_warmup_steps : 0
+batch_size : 32
+device_num : # number of GPUs
+epochs : 3
+seed : 0
+num_of_ex : 5
+pad_to_max_length : max_length
+max_length : 128
+
+save_check : True
+tags : 
+ - # tags in neptune project
+outdir : # output directory 
+nep_method : # this is 'method' column of neptune project
+
+task : cola
+
+lr : # learning rate
+ - 0.00002
+data_ratio : 1
+
+nep_proj : # your neptune project name
+nep_token : # your neptune token
+
+use_neptune : # if you do not use neptune write False

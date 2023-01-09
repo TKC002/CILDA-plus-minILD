@@ -1,1 +1,56 @@
-# CILDA-plus-minILD
+# YAMLファイル
+## 必須
+### 知識蒸留でない場合
+- model
+    - AutoModelForSequenceClassification.from_pretrained()への引数となる。
+### 知識蒸留の場合
+- teacher
+    - AutoModelForSequenceClassification.from_pretrained()への引数となる。
+- student
+    - AutoModelForSequenceClassification.from_pretrained()への引数となる。
+### 知識蒸留であるかに関わらず
+- mathod
+    - 使用する手法を指定する。
+    - 知識蒸留でないならばnormal
+    - KD, RAIL_c, MATE, CILDAに対応している。
+- tokenizer
+    - AutoTokenizer.from_pretrained()への引数となる。
+- tasks
+    - 配列で書く
+    - ただし1タスクにしか対応していない
+- data_ratio
+    - 0以上1以下の数
+    - タスクのデータのうちどれだけの割合を使用するかを決定する。
+- lr_scheduler_type
+    - constantのみ対応
+- wd
+    - weight_decay
+- num_warmup_steps 
+- batch_size
+    - 1つのgpuあたりのバッチサイズ
+- device_num
+    - 使用するgpuの数
+- epochs
+    - 何エポック学習するか
+- num_of_ex
+    - 同じ設定で何回実験を繰り返すか
+- pad_to_max_length
+    - tokenizerのpaddingの設定
+- max_length
+    - tokenizerのpaddingの設定
+- lr
+    - 学習率
+    - 配列で指定
+- outdir
+    - 結果を保存するディレクトリを指定する。
+- 
+### 手法によっては必須
+- lambdas
+    - 損失関数の割合
+    - KDでは[0.5, 0.5]がデフォルト値であるが、その他の手法では指定する必要がある。
+
+### 任意
+- nep_method
+    - neptune.aiへ結果を保存するときのmethodと言うパラメータに保存する値
+- nep_token
+    - neptume.aiのプロジェクトにアクセスするためのトークン
