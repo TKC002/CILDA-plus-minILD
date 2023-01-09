@@ -1,0 +1,54 @@
+method : CILDA
+
+# if you use checkpoint as a teacher
+teacher : roberta-large
+cola : # your checkpoint path (ex PATH/check.bin
+
+# if you use model as a teacher
+teacher : # your model path (pytorch_model.bin and config.json must be in the directory) 
+
+generator : roberta-large
+student : distilroberta-base
+tokenizer : roberta-large
+lr_scheduler_type : constant
+wd : 0.0
+num_warmup_steps : 0
+batch_size : 32
+device_num : # number of GPUs
+epochs : 20
+seed : 0
+num_of_ex : 5
+pad_to_max_length : max_length
+max_length : 128
+
+save_check : True
+tags : 
+ - # tags in neptune project
+
+mlm_prob : 0.3
+alpha : 
+ - 0.5
+ - 0.5
+lambdas :
+ - 0.333
+ - 0.333
+ - 0.222
+ - 0.111
+linear : 128
+linear_method : training
+alpha2 : False
+model_name : roberta
+
+outdir : # output directory 
+nep_method : # this is 'method' column of neptune project
+
+task : cola
+n_generator_iter : 10
+lr : # learning rate
+ - 0.00002
+data_ratio : 1
+
+nep_proj : # your neptune project name
+nep_token : # your neptune token
+
+use_neptune : # if you do not use neptune write False

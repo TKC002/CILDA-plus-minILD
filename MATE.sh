@@ -1,0 +1,1 @@
+accelerate launch mate_training.py --config MATE.yaml
