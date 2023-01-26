@@ -47,6 +47,23 @@
 - lambdas
     - 損失関数の割合
     - KDでは[0.5, 0.5]がデフォルト値であるが、その他の手法では指定する必要がある。
+- n_generator_iter
+    - Generatorを用いる手法で使う。最大化ステップのステップ数を指定する。指定しないと10となる。
+- alpha
+    - CILDAの最大化ステップにおける損失関数の割合
+- linear
+    - 中間層を使う手法において、中間層の出力を線形変換した後の次元数
+- linear_method
+    - random : ランダムな値に固定
+    - training : 線型写像を生徒モデルの学習中に同時に学習
+    - pretraining : 生徒モデルを固定して線型写像のみを学習する。学習した線型写像を"pretrained"を指定してもう一度実行して使う。
+    - pretrained : "pretraining"を指定して学習されていた線型写像を用いる。
+- lambda_nume
+    - CILDA_minILDの最小化ステップでの損失関数の割合の分子
+- lambda_deno
+    - CILDA_minILDの最小化ステップでの損失関数の割合の分母
+    - lambda[i] = lambda_nume[i]/lambda_deno[i]となる。
+
 
 ### 任意
 - use_neptune
