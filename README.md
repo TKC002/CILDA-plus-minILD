@@ -12,12 +12,11 @@
 - mathod
     - 使用する手法を指定する。
     - 知識蒸留でないならばnormal
-    - KD, RAIL_c, MATE, CILDAに対応している。
+    - KD, RAIL_c, MATE, CILDA, CILDA_minILDに対応している。
 - tokenizer
     - AutoTokenizer.from_pretrained()への引数となる。
 - tasks
-    - 配列で書く
-    - ただし1タスクにしか対応していない
+    - GLUEのタスクのみ対応
 - data_ratio
     - 0以上1以下の数
     - タスクのデータのうちどれだけの割合を使用するかを決定する。
@@ -50,6 +49,10 @@
     - KDでは[0.5, 0.5]がデフォルト値であるが、その他の手法では指定する必要がある。
 
 ### 任意
+- use_neptune
+    - neptune.aiでログを取るかをTrue, Falseで指定。指定がない場合、Trueとなる。
+- nep_proj
+    - neptune.aiを使用する際のプロジェクトの名前
 - nep_method
     - neptune.aiへ結果を保存するときのmethodと言うパラメータに保存する値
 - nep_token
