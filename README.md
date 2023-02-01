@@ -3,7 +3,7 @@ CILDA+minILDのソースコード
 ## 対応している手法
 - Without KD (normal)
 - Vanilla KD (KD)
-- RAIL-KD (BERT, RoBERTa : RAIL_c, BART : Bart_RAIL)
+- RAIL-KD (BERT, RoBERTa : RAIL_c, BART : Bart_RAIL_c)
 - MATE-KD (MATE)
 - CILDA (BERT, RoBERTa : CILDA, BART : Bart_CILDA)
 - CILDA+minILD (BERT, RoBERTa : CILDA+minILD)
