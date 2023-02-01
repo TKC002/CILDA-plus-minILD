@@ -1,3 +1,28 @@
+# 概要
+CILDA+minILDのソースコード
+## 対応している手法
+- Without KD (normal)
+- Vanilla KD (KD)
+- RAIL-KD (BERT, RoBERTa : RAIL_c, BART : Bart_RAIL)
+- MATE-KD (MATE)
+- CILDA (BERT, RoBERTa : CILDA, BART : Bart_CILDA)
+- CILDA+minILD (BERT, RoBERTa : CILDA+minILD)
+
+# 環境
+python 3.10
+
+## PyTorchのインストール
+公式サイトよりCUDAを用いるものをインストール
+
+## その他ライブラリのインストール
+pip install -r requirement.txt
+
+# 使用方法
+## Generatorを用いない手法
+accelerate one_method.py --config YOURCONFIG.yaml
+## Generatorを用いる手法
+accelerate mate_training.py --config YOURCONFIG.yaml
+
 # YAMLファイル
 ## 必須
 ### 知識蒸留でない場合
