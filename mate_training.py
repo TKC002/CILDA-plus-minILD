@@ -103,7 +103,7 @@ def train(model, admin, task, conf, accelerator, num_labels, train_dataloader, v
 
     use_neptune = conf['use_neptune'] if 'use_neptune' in conf else True
     if use_neptune:
-        if accelerator.is_main_process:
+        if accelerator.is_main_process and use_neptune:
             run = neptune.init_run(
                 project=conf['nep_proj'],
                 api_token=conf['nep_token'],
@@ -169,7 +169,7 @@ def train(model, admin, task, conf, accelerator, num_labels, train_dataloader, v
                     admin.g_train_mode(model)
                     g_optimizer.zero_grad()
                     outputs, loss, losses = model(**batch)
-                    if accelerator.is_main_process:
+                    if accelerator.is_main_process and use_neptune:
                         admin.log_losses(run, losses, 'train')
                     accelerator.backward(loss)
                     g_loss_sum += loss.detach().clone()
@@ -182,7 +182,7 @@ def train(model, admin, task, conf, accelerator, num_labels, train_dataloader, v
                     admin.s_train_mode(model)
                     optimizer.zero_grad()
                     outputs, loss, losses = model(**batch)
-                    if accelerator.is_main_process:
+                    if accelerator.is_main_process and use_neptune:
                         admin.log_losses(run, losses, 'train')
                     accelerator.backward(loss)
                     loss_sum += loss.detach().clone()
@@ -220,7 +220,7 @@ def train(model, admin, task, conf, accelerator, num_labels, train_dataloader, v
         for step, batch in enumerate(valid_dataloader):
             with torch.no_grad():
                 outputs, loss, losses = model(**batch)
-                if accelerator.is_main_process:
+                if accelerator.is_main_process and use_neptune:
                     admin.log_losses(run, losses, 'valid')
                 loss_sum += loss.detach().clone()
             
@@ -249,7 +249,7 @@ def train(model, admin, task, conf, accelerator, num_labels, train_dataloader, v
         
         # accelerator.wait_for_everyone()
         eval_metric = metric.compute()
-        if accelerator.is_main_process:
+        if accelerator.is_main_process and use_neptune:
             run['train_loss'].log(train_loss.item())
             run['g_train_loss'].log(g_train_loss.item())
             run['valid_loss'].log(valid_loss.item())
@@ -291,7 +291,7 @@ def train(model, admin, task, conf, accelerator, num_labels, train_dataloader, v
         learning_log[epoch] = one_epoch_log
         logger.info(f"epoch {epoch}: {learning_log[epoch]}, time: {int(time.time()-time_start)} seconds.")
     
-    if accelerator.is_main_process:
+    if accelerator.is_main_process and use_neptune:
         run.stop()
     # accelerator.wait_for_everyone()
 
