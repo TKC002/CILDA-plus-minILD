@@ -169,7 +169,7 @@ def train(model, admin, task, conf, accelerator, num_labels, train_dataloader, v
                 if KD:
                     #start = time.time()
                     outputs, loss, losses = model(**batch)
-                    if accelerator.is_main_process:
+                    if accelerator.is_main_process and use_neptune:
                         admin.log_losses(run, losses, 'train')
                     #end = time.time()
                     #print('for ', end-start)
@@ -214,7 +214,7 @@ def train(model, admin, task, conf, accelerator, num_labels, train_dataloader, v
             with torch.no_grad():
                 if KD:
                     outputs, loss, losses = model(**batch)
-                    if accelerator.is_main_process:
+                    if accelerator.is_main_process and use_neptune:
                         admin.log_losses(run, losses, 'valid')
                     loss_sum += loss.detach().clone()
                 else:
@@ -245,7 +245,7 @@ def train(model, admin, task, conf, accelerator, num_labels, train_dataloader, v
         
         accelerator.wait_for_everyone()
         eval_metric = metric.compute()
-        if accelerator.is_main_process:
+        if accelerator.is_main_process and use_neptune:
             run['train_loss'].log(train_loss.item())
             run['valid_loss'].log(valid_loss.item())
             run[task_to_metrics[task]].log(eval_metric[task_to_metrics[task]])
@@ -285,7 +285,7 @@ def train(model, admin, task, conf, accelerator, num_labels, train_dataloader, v
         learning_log[epoch] = one_epoch_log
         logger.info(f"epoch {epoch}: {learning_log[epoch]}, time: {int(time.time()-time_start)} seconds.")
     
-    if accelerator.is_main_process:
+    if accelerator.is_main_process and use_neptune:
         run.stop()
     accelerator.wait_for_everyone()
 
