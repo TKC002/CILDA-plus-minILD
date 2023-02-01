@@ -67,7 +67,8 @@ accelerate mate_training.py --config YOURCONFIG.yaml
     - 配列で指定
 - outdir
     - 結果を保存するディレクトリを指定する。
-- 
+- model_name
+    - RoBERTaならroberta, BERTならbert, BARTならbartと記入
 ### 手法によっては必須
 - lambdas
     - 損失関数の割合
