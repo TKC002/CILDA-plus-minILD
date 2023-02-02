@@ -82,10 +82,8 @@ accelerate mate_training.py --config YOURCONFIG.yaml
 - linear
     - 中間層を使う手法において、中間層の出力を線形変換した後の次元数
 - linear_method
-    - random : ランダムな値に固定
-    - training : 線型写像を生徒モデルの学習中に同時に学習
-    - pretraining : 生徒モデルを固定して線型写像のみを学習する。学習した線型写像を"pretrained"を指定してもう一度実行して使う。
-    - pretrained : "pretraining"を指定して学習されていた線型写像を用いる。
+    - trainingと記入
+
 - lambda_nume
     - CILDA_minILDの最小化ステップでの損失関数の割合の分子
 - lambda_deno
