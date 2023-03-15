@@ -898,8 +898,8 @@ class CILDA_model(MATE_model):
         else:
             lkd = self.loss_kd(soft_label.logits, outputs.logits)
             lkdp = self.loss_kd(outputs_t_p.logits, outputs_s_p.logits)
-            loss = self.conf['lambdas'][0]*outputs.loss + self.conf['lambdas'][1]*lkd + self.conf['lambdas'][2]*outputs_s_p.loss + self.conf['lambdas'][3]*lkdp
-            losses = [outputs.loss.detach().clone(), lkd.detach().clone(), outputs_s_p.loss.detach().clone(), lkdp.detach().clone()]
+            loss = self.conf['lambdas'][0]*outputs.loss + self.conf['lambdas'][1]*lkd + self.conf['lambdas'][2]*lkdp
+            losses = [outputs.loss.detach().clone(), lkd.detach().clone(), lkdp.detach().clone()]
         return outputs, loss, losses
 
 class Bart_CILDA_model(MATE_model):
@@ -1047,7 +1047,7 @@ class CILDA_minILD_model(CILDA_model):
         else:
             lkd = self.loss_kd(soft_label.logits, outputs.logits)
             lcrd = self.CRD_loss(soft_label, outputs)
-            loss = self.lambdas[0]*outputs.loss + self.lambdas[1]*lkd + self.lambdas[2]*lcrd + self.lambdas[3]*outputs_s_p.loss + self.lambdas[4]*lkdp + self.lambdas[5]*lcrdp
+            loss = self.lambdas[0]*outputs.loss + self.lambdas[1]*lkd + self.lambdas[2]*lcrd + self.lambdas[3]*lkdp + self.lambdas[4]*lcrdp
             losses = [outputs.loss.detach().clone(), lkd.detach().clone(), lcrd.detach().clone(), outputs_s_p.loss.detach().clone(), lkdp.detach().clone(), lcrdp.detach().clone()]
 
         return outputs, loss, losses
