@@ -10,6 +10,8 @@ CILDA+minILDのソースコード
 
 # 環境
 python 3.10
+Ubuntu
+Cuda
 
 ## PyTorchのインストール
 公式サイトよりCUDAを用いるものをインストール
